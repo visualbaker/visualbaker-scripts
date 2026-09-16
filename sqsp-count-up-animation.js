@@ -1,5 +1,4 @@
-<!-- Counter (tab-safe) -->
-<script>
+
 (function () {
   const bound = new WeakSet();
   const done = new WeakSet();
@@ -82,4 +81,4 @@
   }
   window.addEventListener('load', () => { scan(); recheck(); });
 })();
-</script>
+
