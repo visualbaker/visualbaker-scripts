@@ -1,0 +1,96 @@
+/* Video Thumbnails — Guide Me Social portfolio */
+.ss-video-thumbs { position: relative; }
+.ss-video-thumbs a.image-wrapper { position: relative; display: block; overflow: hidden; }
+
+.ss-video-thumbs .ss-vt-video {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 50%;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ss-video-thumbs.is-started .ss-vt-video { opacity: 1; }
+
+.ss-video-thumbs .ss-vt-ui { position: absolute; z-index: 3; pointer-events: none; }
+
+/* Shared button reset (overrides theme button styles) */
+.ss-video-thumbs .ss-vt-btn {
+  -webkit-appearance: none; appearance: none;
+  margin: 0; padding: 0; border: 0; border-radius: 50%;
+  box-shadow: none; outline: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: hsla(var(--white-hsl, 0, 0%, 100%), 1);
+  background: hsla(var(--black-hsl, 0, 0%, 0%), 0.35);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+}
+.ss-video-thumbs .ss-vt-btn:hover { background: hsla(var(--black-hsl, 0, 0%, 0%), 0.5); }
+.ss-video-thumbs .ss-vt-btn:focus-visible {
+  outline: 2px solid hsla(var(--white-hsl, 0, 0%, 100%), 0.9); outline-offset: 3px;
+}
+
+/* One icon per state */
+.ss-video-thumbs .ss-vt-btn svg { display: none; flex: none; }
+.ss-video-thumbs:not(.is-playing) .ss-vt-btn .ss-vt-i-play,
+.ss-video-thumbs.is-playing .ss-vt-btn .ss-vt-i-pause,
+.ss-video-thumbs:not(.is-sound-on) .ss-vt-btn .ss-vt-i-muted,
+.ss-video-thumbs.is-sound-on .ss-vt-btn .ss-vt-i-sound { display: block; }
+
+/* Play / pause — revealed on hover */
+.ss-video-thumbs .ss-vt-play {
+  position: absolute; top: 50%; left: 50%;
+  width: 56px; height: 56px;
+  opacity: 0; pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+.ss-video-thumbs .ss-vt-play svg { width: 22px; height: 22px; }
+.ss-video-thumbs .ss-vt-btn .ss-vt-i-play { transform: translateX(1.5px); } /* optical centering */
+.ss-video-thumbs .ss-vt-play:focus-visible {
+  opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1);
+}
+@media (hover: hover) {
+  .ss-video-thumbs.is-hover .ss-vt-play {
+    opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1);
+  }
+}
+@media (hover: none) {
+  .ss-video-thumbs:not(.is-playing) .ss-vt-play {
+    opacity: 0.9; pointer-events: auto; transform: translate(-50%, -50%) scale(0.85);
+  }
+}
+
+/* Mute / unmute — icon only */
+.ss-video-thumbs .ss-vt-sound {
+  position: absolute; right: 14px; bottom: 16px;
+  width: 36px; height: 36px;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+}
+.ss-video-thumbs .ss-vt-sound svg { width: 16px; height: 16px; }
+.ss-video-thumbs.is-started .ss-vt-sound {
+  opacity: 1; pointer-events: auto; transform: none;
+  transition-delay: 0.12s;
+}
+
+/* Progress line */
+.ss-video-thumbs .ss-vt-track {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: hsla(var(--white-hsl, 0, 0%, 100%), 0.22);
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.ss-video-thumbs.is-started .ss-vt-track { opacity: 1; transition-delay: 0.24s; }
+.ss-video-thumbs .ss-vt-bar {
+  height: 100%; transform: scaleX(0); transform-origin: left center;
+  background: hsla(var(--white-hsl, 0, 0%, 100%), 0.95);
+}
+
+@media (max-width: 600px) {
+  .ss-video-thumbs .ss-vt-play { width: 48px; height: 48px; }
+  .ss-video-thumbs .ss-vt-play svg { width: 18px; height: 18px; }
+  .ss-video-thumbs .ss-vt-sound { right: 10px; bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-video-thumbs *, .ss-video-thumbs *::before, .ss-video-thumbs *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
