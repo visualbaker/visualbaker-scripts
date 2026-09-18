@@ -66,9 +66,12 @@
   opacity: 0; pointer-events: none; transform: translateY(8px);
 }
 .ss-video-thumbs .ss-vt-sound svg { width: 16px; height: 16px; }
-.ss-video-thumbs.is-started .ss-vt-sound {
+.ss-video-thumbs.is-started.is-hover .ss-vt-sound,
+.ss-video-thumbs.is-sound-on .ss-vt-sound {
   opacity: 1; pointer-events: auto; transform: none;
-  transition-delay: 0.12s;
+}
+@media (hover: none) {
+  .ss-video-thumbs.is-started .ss-vt-sound { opacity: 0.9; pointer-events: auto; transform: none; }
 }
 
 /* Progress line */
